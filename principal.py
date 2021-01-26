@@ -72,7 +72,7 @@ def filtrar_data():
     dataFinal = listagem_abast.dateEdit_2.date().toPyDate()
     banco = sqlite3.connect('data_transportes.db')
     cursor = banco.cursor()
-    cursor.execute("SELECT * FROM abastecimentos WHERE data BETWEEN " '+ dataInicial +' " AND " '+ dataFinal+')
+    cursor.execute("SELECT * FROM abastecimentos WHERE data BETWEEN '01/01/2021' AND '01/03/2021'")
     dados_lidos = cursor.fetchall()
     listagem_abast.tableWidget.setRowCount(len(dados_lidos))
     listagem_abast.tableWidget.setColumnCount(6)

@@ -1,7 +1,9 @@
 from PyQt5 import uic, QtWidgets
 from PyQt5.QtWidgets import QMessageBox
 import sqlite3
-from datetime import datetime
+from datetime import datetime, date
+
+
 
 banco = sqlite3.connect('data_transportes.db')
 cursor = banco.cursor()
@@ -70,9 +72,12 @@ def listar_abast():
 def filtrar_data():
     dataInicial =  listagem_abast.dateEdit.date().toPyDate()
     dataFinal = listagem_abast.dateEdit_2.date().toPyDate()
+    dataInicialF = dataInicial.strftime('%d/%m/%Y')
+    dataFinalF = dataFinal.strftime('%d/%m/%Y')
+    
     banco = sqlite3.connect('data_transportes.db')
     cursor = banco.cursor()
-    cursor.execute("SELECT * FROM abastecimentos WHERE data BETWEEN '01/01/2021' AND '01/03/2021'")
+    cursor.execute(f"SELECT * FROM abastecimentos WHERE data BETWEEN data >{dataInicialF} AND data < {dataFinalF}")
     dados_lidos = cursor.fetchall()
     listagem_abast.tableWidget.setRowCount(len(dados_lidos))
     listagem_abast.tableWidget.setColumnCount(6)
